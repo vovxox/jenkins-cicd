@@ -7,17 +7,20 @@ pipeline {
 
     stages {
 
-        stage('Set environment') {
-            steps {
-                sh "echo ${ENV_NAME}"
-                }
-            }
-        }        
         stage('checkout') {
             steps {
                 checkout scm
             }
         }
+
+
+        stage('Set environment') {
+            steps {
+                sh "echo ${ENV_NAME}"
+                }
+            }
+        }
+        
         stage('Build') {
             steps {
                 timestamps {
