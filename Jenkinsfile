@@ -59,7 +59,7 @@ pipeline {
             }
         }
     }
-}
+
 
 def getEnvName(branchName) {
     if("int".equals(branchName)) {
