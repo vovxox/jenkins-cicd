@@ -16,7 +16,7 @@ pipeline {
                 timestamps {
                     retry(3) {
                         sh label: 'image build', script: '''
-                            export DOCKER_TAG=${JOB_NAME}
+                            export DOCKER_TAG=${BUILD_URL}
                             if [ -z ${DOCKER_TAG##*alpine*} ]; then
                                 export DOCKER_FILE="Dockerfile-alpine"
                             else
@@ -43,9 +43,9 @@ pipeline {
                     }
                     retry(3) {
                         sh label: 'image push', script: '''
-                            docker push ${DOCKER_IMAGE}:${JOB_NAME}
-                            docker tag ${DOCKER_IMAGE}:${JOB_NAME} ${DOCKER_ALIAS}:${JOB_NAME}
-                            docker push ${DOCKER_ALIAS}:${JOB_NAME}
+                            docker push ${DOCKER_IMAGE}:${BUILD_URL}
+                            docker tag ${DOCKER_IMAGE}:${BUILD_URL} ${DOCKER_ALIAS}:${BUILD_URL}
+                            docker push ${DOCKER_ALIAS}:${BUILD_URL}
                         '''
                     }
                 }
