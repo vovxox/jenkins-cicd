@@ -6,6 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'vovxox/nginx-cd'
         DOCKER_ALIAS = 'vovxox/nginx-cd'
         DOCKER_PUSH  = true
+        ENV_NAME = getEnvName(env.BRANCH_NAME)
     }
     stages {
         stage('checkout') {
@@ -18,6 +19,7 @@ pipeline {
                 timestamps {
                     retry(3) {
                         sh label: 'image build', script: '''
+                            echo $ENV_NAME
                             export DOCKER_TAG=${BUILD_NUMBER}
                             if [ -z ${DOCKER_TAG##*alpine*} ]; then
                                 export DOCKER_FILE="Dockerfile-alpine"
