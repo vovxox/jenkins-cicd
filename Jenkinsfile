@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'vovxox/nginx-cd'
         DOCKER_ALIAS = 'vovxox/nginx-cd'
+        DOCKER_PUSH  = true
     }
     stages {
         stage('checkout') {
