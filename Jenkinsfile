@@ -1,26 +1,18 @@
-pipeline { 
+pipeline {
+    
+    // agent any
+    agent { label 'master' }
     environment {
         DOCKER_IMAGE = 'vovxox/nginx-cd'
         DOCKER_ALIAS = 'vovxox/nginx-cd'
-        ENV_NAME = getEnvName(env.BRANCH_NAME)
+        DOCKER_PUSH  = true
     }
-
     stages {
-
         stage('checkout') {
             steps {
                 checkout scm
             }
         }
-
-
-        stage('Set environment') {
-            steps {
-                sh "echo ${ENV_NAME}"
-                }
-            }
-        }
-        
         stage('Build') {
             steps {
                 timestamps {
@@ -62,10 +54,10 @@ pipeline {
             }
         }
     }
-
+}
 
 def getEnvName(branchName) {
-    if("int".equals(branchName)) {
+    if ("int".equals(branchName)) {
         return "int";
     } else if ("production".equals(branchName)) {
         return "prod";
