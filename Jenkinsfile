@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    // agent any
+    agent { label 'master' }
     environment {
         DOCKER_IMAGE = 'vovxox/nginx-cd'
         DOCKER_ALIAS = 'vovxox/nginx-cd'
