@@ -22,7 +22,7 @@ pipeline {
             sh "echo ${env.PRIVATE_TOKEN}"
             sh "echo ${env.PUBLIC_TOKEN}"
             sh "echo ${env.API_KEY}"
-            sh "vault status -address ${env.VAULT_ADDR}"
+            sh "vault status"
           }
         }  
       }
