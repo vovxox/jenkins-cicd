@@ -25,23 +25,12 @@ pipeline {
             steps {
                 withVault([configuration: vaultConfiguration, vaultSecrets: vaultSecrets]){
                     echo vaultConfiguration.toString()
-        //             sh "echo ${env.PRIVATE_TOKEN}"
-        //             sh "echo ${env.PUBLIC_TOKEN}"
-        //             sh "echo ${env.API_KEY}"
-        //             sh "vault status"
+                    sh "echo ${env.PRIVATE_TOKEN}"
+                    sh "echo ${env.PUBLIC_TOKEN}"
+                    sh "echo ${env.API_KEY}"
+                    sh "vault status"
                 }
             }  
-        }
-        stage('Test') {
-            steps {
-                try {
-                    sh 'exit 1'
-                }
-                catch (exc) {
-                    echo 'Something failed, I should sound the klaxons!'
-                    throw
-                }
-            }
         }
     }
 }
