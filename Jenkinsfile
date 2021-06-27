@@ -4,7 +4,7 @@ def secrets = [
     [envVar: 'PUBLIC_TOKEN', vaultKey: 'public-token'],
     [envVar: 'API_KEY', vaultKey: 'api-key']]],
 ]
-def configuration = [vaultUrl: 'http://localhost:8200',  vaultCredentialId: 'vault-approle', engineVersion: 2]
+def configuration = [vaultUrl: 'http://127.0.0.1:8200',  vaultCredentialId: 'vault-approle', engineVersion: 2]
                       
 pipeline {
     agent any
