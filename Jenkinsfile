@@ -23,7 +23,7 @@ pipeline {
     stages{   
       stage('Vault') {
         steps {
-          withVault([configuration: params.vaultConfiguration, vaultSecrets: vaultSecrets]){
+          withVault([configuration: vaultConfiguration, vaultSecrets: vaultSecrets]){
             sh "echo ${env.PRIVATE_TOKEN}"
             sh "echo ${env.PUBLIC_TOKEN}"
             sh "echo ${env.API_KEY}"
