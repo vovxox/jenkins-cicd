@@ -21,22 +21,26 @@ pipeline {
         disableConcurrentBuilds()
     }
     stages{   
-      stage('Vault') {
-        steps {
-          withVault([configuration: vaultConfiguration, vaultSecrets: vaultSecrets]){
-               echo vaultConfiguration.toString()
-//             sh "echo ${env.PRIVATE_TOKEN}"
-//             sh "echo ${env.PUBLIC_TOKEN}"
-//             sh "echo ${env.API_KEY}"
-//             sh "vault status"
-          }
-        }  
-      }
-        stage('Example') {
-            if (env.BRANCH_NAME == 'master') {
-                echo 'I only execute on the master branch'
-            } else {
-                echo 'I execute elsewhere'
+        stage('Vault') {
+            steps {
+                withVault([configuration: vaultConfiguration, vaultSecrets: vaultSecrets]){
+                    echo vaultConfiguration.toString()
+        //             sh "echo ${env.PRIVATE_TOKEN}"
+        //             sh "echo ${env.PUBLIC_TOKEN}"
+        //             sh "echo ${env.API_KEY}"
+        //             sh "vault status"
+                }
+            }  
+        }
+        stage('Test') {
+            steps {
+                try {
+                    sh 'exit 1'
+                }
+                catch (exc) {
+                    echo 'Something failed, I should sound the klaxons!'
+                    throw
+                }
             }
         }
     }
