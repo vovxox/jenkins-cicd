@@ -1,6 +1,8 @@
 def secrets = [
-  [path: 'secret/test/test1', engineVersion: 2, secretValues: [
-    [envVar: 'PRIVATE_TOKEN', vaultKey: 'one']
+  [path: 'secret/jenkins/github', engineVersion: 2, secretValues: [
+    [envVar: 'PRIVATE_TOKEN', vaultKey: 'private-token'],
+    [envVar: 'PUBLIC_TOKEN', vaultKey: 'public-token'],
+    [envVar: 'API_KEY', vaultKey: 'api-key']]],
 ]
 def configuration = [vaultUrl: 'http://vault0:8200',  vaultCredentialId: 'vault-approle', engineVersion: 2]
                       
@@ -15,6 +17,8 @@ pipeline {
         steps {
           withVault([configuration: configuration, vaultSecrets: secrets]) {
             sh "echo ${env.PRIVATE_TOKEN}"
+            sh "echo ${env.PUBLIC_TOKEN}"
+            sh "echo ${env.API_KEY}"
           }
         }  
       }
