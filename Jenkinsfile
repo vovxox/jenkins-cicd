@@ -35,11 +35,17 @@ pipeline {
         stage('Example') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'master') {
-                        echo 'I only execute on the master branch'
-                    } else {
-                        echo 'I execute elsewhere'
-                    }   
+                    echo 'Test'
+
+                    script {
+                        if (ENVIRONMENT_NAME == 'development') {
+                            ENV_NAME = 'Development'
+                        } else if (ENVIRONMENT_NAME == 'master') {
+                            ENV_NAME = 'Production'
+                        }
+                    }
+                    echo 'Building Branch: ' + env.BRANCH_NAME
+                    echo 'Build Number: ' + env.BUILD_NUMBER
                 }
             }
         }
